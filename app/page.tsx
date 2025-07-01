@@ -198,7 +198,7 @@ export default function LandingPage() {
  </Link>
 
   {/* Card 3: Anonymous Peer Support */}
-<Link href="/mood-checkin" className="max-w-xs">
+<Link href="/Chats" className="max-w-xs">
   <SpotlightCard
     className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center"
 
