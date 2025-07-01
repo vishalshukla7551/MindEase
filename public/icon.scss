@@ -1,0 +1,209 @@
+
+
+div.codepen{
+  display: block;
+  position: relative;
+  top:50%;
+  height: 16em;
+  width: 16em;
+  margin: -8em auto 0;
+  border-radius: 8em;
+  background-color: #121212;
+  cursor: pointer;
+  transition: color 0.8s linear,
+    background 0.8s linear,
+    box-shadow 0.1s linear,
+    transform 0.1s linear;
+  
+  &:hover{
+    background-color: #DCDCDC;
+  }
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -4.5em 0 0 -0.4em;
+    height: 0.8em;
+    width: 0.8em;
+    line-height: 0.8em;
+    border-radius: 0.35em;
+    outline: 1px solid transparent; // anti-aliasing fix
+    color: #FFF;
+    background: #FFF;
+    overflow: visible;
+    transform: rotate(42.5deg) skew(-15deg,-10deg);
+    filter: blur(0);
+    box-shadow:
+      // Top Square
+      // Right Side
+      0.3em 0 0,
+      0.6em 0 0,
+      0.9em 0 0,
+      1.2em 0 0,
+      1.5em 0 0,
+      1.8em 0 0,
+      2.1em 0 0,
+      2.4em 0 0,
+      2.7em 0 0,
+      3em 0 0,
+      3.3em 0 0,
+      3.6em 0 0,
+      3.9em 0 0,
+      4.2em 0 0,
+      4.5em 0 0,
+      4.6em 0 0,
+      4.95em 0 0, // Point
+      4.95em 0.4em 0,
+      4.95em 0.6em 0,
+      4.95em 0.9em 0,
+      4.95em 1.2em 0,
+      4.95em 1.5em 0,
+      4.95em 1.8em 0,
+      4.95em 2.1em 0,
+      4.95em 2.4em 0,
+      4.95em 2.7em 0,
+      4.95em 3em 0,
+      4.95em 3.3em 0,
+      4.95em 3.6em 0,
+      4.95em 3.9em 0,
+      4.95em 4.2em 0,
+      4.95em 4.5em 0,
+      4.95em 4.8em 0,
+      // Left Side
+      0 0.3em 0,
+      0 0.6em 0,
+      0 0.9em 0,
+      0 1.2em 0,
+      0 1.5em 0,
+      0 1.8em 0,
+      0 2.1em 0,
+      0 2.4em 0,
+      0 2.7em 0,
+      0 3em 0,
+      0 3.3em 0,
+      0 3.6em 0,
+      0 3.9em 0,
+      0 4.2em 0,
+      0 4.5em 0,
+      0em 4.85em 0, // Point
+      0.4em 4.9em 0,
+      0.6em 4.9em 0,
+      0.9em 4.9em 0,
+      1.2em 4.9em 0,
+      1.5em 4.9em 0,
+      1.8em 4.9em 0,
+      2.1em 4.9em 0,
+      2.4em 4.9em 0,
+      3em 4.9em 0,
+      3.3em 4.9em 0,
+      3.6em 4.9em 0,
+      3.9em 4.9em 0,
+      4.2em 4.9em 0,
+      4.5em 4.9em 0,
+      4.8em 4.9em 0,
+      4.9em 4.9em 0,
+      
+      // Bottom Square
+      // Right Side
+      2.6em 2.5em 0,
+      2.9em 2.5em 0,
+      3.1em 2.5em 0,
+      3.4em 2.5em 0,
+      3.7em 2.5em 0,
+      4em 2.5em 0,
+      4.3em 2.5em 0,
+      4.6em 2.5em 0,
+      4.9em 2.5em 0,
+      5.1em 2.5em 0,
+      5.4em 2.5em 0,
+      5.7em 2.5em 0,
+      6em 2.5em 0,
+      6.3em 2.5em 0,
+      6.5em 2.5em 0,
+      6.8em 2.5em 0,
+      7.1em 2.56em 0,
+      7.2em 2.56em 0,
+      7.45em 2.5em 0, // Point
+      7.45em 2.8em 0,
+      7.45em 2.9em 0,
+      7.45em 3.2em 0,
+      7.45em 3.5em 0,
+      7.45em 3.8em 0,
+      7.45em 4.1em 0,
+      7.45em 4.4em 0,
+      7.45em 4.7em 0,
+      7.45em 5em 0,
+      7.45em 5.3em 0,
+      7.45em 5.6em 0,
+      7.45em 5.9em 0,
+      7.45em 6.2em 0,
+      7.45em 6.5em 0,
+      7.45em 6.8em 0,
+      7.45em 7.1em 0,
+      // Left Side
+      2.6em 2.9em 0,
+      2.6em 3.2em 0,
+      2.6em 3.5em 0,
+      2.6em 3.8em 0,
+      2.6em 4.1em 0,
+      2.6em 4.4em 0,
+      2.6em 4.7em 0,
+      2.6em 5em 0,
+      2.6em 5.3em 0,
+      2.6em 5.6em 0,
+      2.6em 5.9em 0,
+      2.6em 6.2em 0,
+      2.6em 6.5em 0,
+      2.6em 6.8em 0,
+      2.6em 7em 0,
+      2.6em 7.35em 0, // Point
+      2.9em 7.35em 0,
+      3.1em 7.35em 0,
+      3.4em 7.35em 0,
+      3.7em 7.35em 0,
+      4em 7.35em 0,
+      4.3em 7.35em 0,
+      4.6em 7.35em 0,
+      4.9em 7.35em 0,
+      5.2em 7.35em 0,
+      5.5em 7.35em 0,
+      5.8em 7.35em 0,
+      6.1em 7.35em 0,
+      6.4em 7.35em 0,
+      6.7em 7.35em 0,
+      7em 7.35em 0,
+      7.3em 7.35em 0,
+      7.45em 7.35em 0;
+  }
+  
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 3.8em;
+    left: 50%;
+    height: 3.15em;
+    width: 0.8em;
+    margin-left: -0.45em;
+    border-radius: 0.4em;
+    outline: 1px solid transparent;
+    color: #FFF;
+    background: #FFF;
+    box-shadow: 4.45em 2.6em 0,
+      -0.05em 5.4em 0,
+      -4.4em 2.65em 0;
+  }
+  
+  &:hover {
+    box-shadow: 0 0 1em 0.1em rgba(0, 0, 0, 0.75);
+    transform: scale(1.02);
+    
+    &::before,
+    &::after {
+      color: #000;
+      background: #000;
+    }
+  }
+}

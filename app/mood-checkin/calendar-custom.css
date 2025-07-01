@@ -1,0 +1,28 @@
+/* calendar-custom.css */
+
+.react-calendar {
+  font-family: inherit;
+  background: #fff;
+  border: none;
+  color: #1f2937;
+}
+
+.react-calendar__tile {
+  font-size: 1rem;
+  color: #1f2937;
+}
+
+.react-calendar__tile--active {
+  background: #a78bfa !important;
+  color: white !important;
+}
+
+.react-calendar__navigation button {
+  color: #4b5563;
+  font-weight: 600;
+}
+
+.react-calendar__month-view__weekdays {
+  color: #6b7280;
+  font-weight: 600;
+}
