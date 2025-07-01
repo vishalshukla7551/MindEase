@@ -20,9 +20,11 @@ io.on('connection', (socket) => {
   socket.on('send_message', (data) => {
     io.emit('receive_message', {
       id: socket.id,
+      userId:data.userId,
       message: data.message,
       timestamp: new Date().toISOString(),
     });
+    console.log(data.userId);
     console.log(data.message);
   });
 
