@@ -1,8 +1,7 @@
 "use client";
 import  "../public/icon.scss";
+import Image from 'next/image';
 import Link from 'next/link';
-import Image from "next/image";
-import ScrollFloat from './components/animations/ScrollFloat/scrollfloat';
 import Hyperspeed from "./components/animations/Hyperspeed/hyperspeed";
 import { TypewriterEffect } from "./components/ui/typewriter-effect";
 import SpotlightCard from "./components/animations/SpotlightCard/SpotlightCard"
@@ -165,7 +164,10 @@ export default function LandingPage() {
 
     spotlightColor="rgba(0, 229, 255, 0.2)"
   >
-    <img src="/dial.png" alt="Mood dial icon" className="w-16 h-16 mb-4" />
+
+<Image src="/dial.png" alt="Mood dial icon" width={64} height={64} className="mb-4"
+/>
+
       <h3 className="text-2xl font-semibold text-purple-700 mb-3">Daily Mood Check-ins</h3>
       <p className="text-base text-gray-700 mb-2">
         Log your emotions daily to track patterns and understand your triggers.
@@ -183,8 +185,7 @@ export default function LandingPage() {
 
     spotlightColor="rgba(0, 229, 255, 0.2)"
   >
-  
-    <img src="/selfcare.png" alt="Self-care icon" className="w-16 h-16 mb-4" />
+  <Image src="/selfcare.png" alt="Self-care icon" width={64}   height={64} className="mb-4"/>
     <div className="max-w-xs">
       <h3 className="text-2xl font-semibold text-purple-700 mb-3">Personalized Self-Care</h3>
       <p className="text-base text-gray-700 mb-2">
@@ -203,7 +204,7 @@ export default function LandingPage() {
 
     spotlightColor="rgba(0, 229, 255, 0.2)"
   >
-    <img src="/chat.png" alt="Support icon" className="w-16 h-16 mb-4" />
+    <Image src="/chat.png" alt="Support icon" width={64}   height={64} className="mb-4"/>
     <div className="max-w-xs">
       <h3 className="text-2xl font-semibold text-purple-700 mb-3">Anonymous Peer Support</h3>
       <p className="text-base text-gray-700 mb-2">
@@ -278,11 +279,8 @@ type AnimatedSectionProps = {
         transition={{ duration: 0.8 }}
         className="md:w-1/2 flex justify-center"
       >
-        <img
-          src={imageSrc}
-          alt={altText}
-          className="w-2/3 max-w-md rounded-xl shadow-lg"
-        />
+    
+<Image src={imageSrc} alt={altText} width={400}  height={300} className="w-2/3 max-w-md rounded-xl shadow-lg" unoptimized />
       </motion.div>
 
       {/* Text with animation */}

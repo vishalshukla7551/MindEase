@@ -5,10 +5,6 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import './calendar-custom.css';
 
-interface MoodCheckInProps {
-  onMoodSubmit: (data: { mood: string; note: string }) => void;
-}
-
 const sampleData: Record<string, { mood: string; note: string }[]> = {
   '2025-06-25': [
     { mood: '😊', note: 'Felt great and productive' },
@@ -19,14 +15,15 @@ const sampleData: Record<string, { mood: string; note: string }[]> = {
   ],
 };
 
-export default function MoodCheckIn({ onMoodSubmit }: MoodCheckInProps) {
+export default function MoodCheckIn() {
   const [mood, setMood] = useState('');
   const [note, setNote] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
   const handleSubmit = () => {
     if (mood) {
-      onMoodSubmit({ mood, note });
+      console.log('Mood Submitted:', { mood, note });
+      // In real case: Call an API here
     }
   };
 

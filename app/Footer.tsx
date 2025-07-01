@@ -5,9 +5,9 @@ const Footer = () => {
         {/* Left side content */}
         <div className="w-full sm:w-1/2">
           <h3 className="text-xl font-semibold text-purple-400 mb-2">Mental Health Companion</h3>
-          <p className="text-sm max-w-md">
-            Your safe space to reflect, connect, and grow emotionally. We're here to support your mental well-being.
-          </p>
+         <p className="text-sm max-w-md">
+  Your safe space to reflect, connect, and grow emotionally. We&rsquo;re here to support your mental well-being.
+</p>
         </div>
 
         {/* Right side content */}

@@ -19,7 +19,9 @@ export default function Start() {
   return (
     <main className="min-h-screen bg-white flex flex-col items-center justify-center p-8">
       <h1 className="text-4xl font-bold text-purple-700 mb-4">Welcome to MindEase</h1>
-      <p className="text-gray-600 mb-8 text-center max-w-xl">Let's begin your journey towards better mental health. Take a moment to check in with yourself and tell us how you're feeling today.</p>
+    <p className="text-gray-600 mb-8 text-center max-w-xl">
+  {`Let's begin your journey towards better mental health. Take a moment to check in with yourself and tell us how you're feeling today.`}
+</p>
       <div className="flex space-x-4 mb-8">
         {['happy', 'neutral', 'sad'].map((item, idx) => (
           <button
