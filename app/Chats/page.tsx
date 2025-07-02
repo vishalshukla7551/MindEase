@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { io, Socket } from 'socket.io-client';
-import { v4 as uuidv4 } from 'uuid'; // install this with: npm install uuid
+import { v4 as uuidv4 } from 'uuid';
 
-// Define message type
+// Message type
 type Message = {
   id: string;
   userId: string;
@@ -17,11 +17,27 @@ const socket: Socket = io(process.env.NEXT_PUBLIC_SOCKET_PORT || 'http://localho
 export default function AnonymousChat() {
   const [message, setMessage] = useState<string>('');
   const [messages, setMessages] = useState<Message[]>([]);
-  const bottomRef = useRef<HTMLDivElement | null>(null);
+  const [nickname, setNickname] = useState<string>('');
+  const [showNicknamePrompt, setShowNicknamePrompt] = useState<boolean>(false);
+  const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
-  // Generate anonymous user ID once
-  const [userId] = useState<string>(() => uuidv4().slice(0, 8)); // Shorter ID
-  console.log(userId);
+  const [userId] = useState<string>(() => {
+    const storedId = localStorage.getItem('anon-id');
+    if (storedId) return storedId;
+    const newId = uuidv4().slice(0, 8);
+    localStorage.setItem('anon-id', newId);
+    return newId;
+  });
+
+  useEffect(() => {
+    const savedNickname = localStorage.getItem('anon-nickname');
+    if (savedNickname) {
+      setNickname(savedNickname);
+    } else {
+      setShowNicknamePrompt(true);
+    }
+  }, []);
+
   useEffect(() => {
     const handleReceiveMessage = (data: Message) => {
       setMessages((prev) => [...prev, data]);
@@ -35,15 +51,16 @@ export default function AnonymousChat() {
   }, []);
 
   useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (chatBoxRef.current) {
+      chatBoxRef.current.scrollTop = chatBoxRef.current.scrollHeight;
+    }
   }, [messages]);
 
   const sendMessage = () => {
-    console.log(messages);
     if (message.trim()) {
       const msgData: Message = {
         id: uuidv4(),
-        userId,
+        userId: nickname || userId,
         message,
         timestamp: new Date().toISOString(),
       };
@@ -52,44 +69,88 @@ export default function AnonymousChat() {
     }
   };
 
-  return (
-    <div className="p-4 min-h-screen max-w-xl mx-auto">
-      <h2 className="text-2xl font-bold mb-4 text-center">Anonymous Peer Support</h2>
-     <div className="text-white text-center font-bold mb-4">User id:{userId}</div>
-      <div className="h-[30rem] overflow-y-auto border p-2 mb-4 bg-white rounded shadow">
-  {messages.map((msg, idx) => {
-    const isOwnMessage = msg.userId === userId;
+  const handleNicknameSubmit = () => {
+    if (nickname.trim()) {
+      localStorage.setItem('anon-nickname', nickname.trim());
+      setShowNicknamePrompt(false);
+    }
+  };
 
-    return (
-      <div key={idx} className={`mb-3 flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`}>
-        <div className={`max-w-xs p-2 rounded text-sm ${isOwnMessage ? 'bg-purple-600 text-white' : 'bg-purple-100 text-black'}`}>
-          <div className="text-xs opacity-70 mb-1">
-            {isOwnMessage ? 'You' : `User #${msg.userId}`}
-            {' • '}
-            {new Date(msg.timestamp).toLocaleTimeString()}
-          </div>
-          <div>{msg.message}</div>
+  return (
+   <div className="min-h-screen max-w-xl mx-auto flex flex-col items-center justify-start space-y-2 p-2">
+  <h2 className="text-xl font-bold text-center">Anonymous Peer Support</h2>
+
+  <div className="text-xl font-semibold text-purple-800 text-center">
+  Name: {nickname || 'Anonymous'}
+  </div>
+ {/* Nickname Prompt Modal goes here */}
+    {showNicknamePrompt && (
+      <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div className="bg-white p-4 rounded-lg shadow w-72 space-y-3 text-center">
+          <h3 className="text-lg font-semibold text-purple-700">Enter a nickname</h3>
+          <input
+            type="text"
+            value={nickname}
+            onChange={(e) => setNickname(e.target.value)}
+            placeholder="e.g. CalmPanda"
+            className="w-full border p-2 rounded text-black"
+          />
+          <button
+            onClick={() => {
+              if (nickname.trim()) {
+                localStorage.setItem('anon-nickname', nickname.trim());
+                setShowNicknamePrompt(false);
+              }
+            }}
+            className="bg-purple-600 text-white px-4 py-2 rounded w-full text-sm"
+          >
+            Join Chat
+          </button>
         </div>
       </div>
-    );
-  })}
-  <div ref={bottomRef} />
+    )}
+  <div
+    ref={chatBoxRef}
+    className="h-[30rem] w-full overflow-y-auto border bg-white p-2 rounded shadow"
+  >
+    {messages.map((msg, idx) => {
+      const isOwnMessage = msg.userId === (nickname || userId);
+      return (
+        <div key={idx} className={`mb-2 flex ${isOwnMessage ? 'justify-end' : 'justify-start'}`}>
+          <div
+            className={`max-w-xs p-2 rounded text-sm ${
+              isOwnMessage ? 'bg-purple-600 text-white' : 'bg-purple-100 text-black'
+            }`}
+          >
+            <div className="text-[10px] opacity-70 mb-1">
+              {isOwnMessage ? 'You' : `${msg.userId}`} •{' '}
+              {new Date(msg.timestamp).toLocaleTimeString()}
+            </div>
+            <div>{msg.message}</div>
+          </div>
+        </div>
+      );
+    })}
+  </div>
+
+  <div className="flex w-full">
+    <input
+      className="flex-1 border p-2 rounded-l text-sm"
+      type="text"
+      placeholder="Type a message..."
+      value={message}
+      onChange={(e) => setMessage(e.target.value)}
+      onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
+      disabled={showNicknamePrompt}
+    />
+    <button
+      onClick={sendMessage}
+      className="bg-purple-600 text-white px-4 rounded-r text-sm"
+      disabled={showNicknamePrompt}
+    >
+      Send
+    </button>
+  </div>
 </div>
-
-
-      <div className="flex">
-        <input
-          className="flex-1 border p-2 rounded-l"
-          type="text"
-          placeholder="Type your message..."
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-          onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
-        />
-        <button onClick={sendMessage} className="bg-purple-600 text-white px-4 rounded-r">
-          Send
-        </button>
-      </div>
-    </div>
   );
 }
