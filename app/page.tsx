@@ -1,226 +1,180 @@
 "use client";
-import  "../public/icon.scss";
+
+import "../public/icon.scss";
 import Image from 'next/image';
 import Link from 'next/link';
 import Hyperspeed from "./components/animations/Hyperspeed/hyperspeed";
 import { TypewriterEffect } from "./components/ui/typewriter-effect";
-import SpotlightCard from "./components/animations/SpotlightCard/SpotlightCard"
+import SpotlightCard from "./components/animations/SpotlightCard/SpotlightCard";
 import BlurText from "./components/animations/BlurText/BlurText";
-import { useEffect, useState } from "react";
-
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+
 export default function LandingPage() {
-  
+  const hyperspeedRef = useRef(null);
+  const sectionRef = useRef(null);
+  const isInView = useInView(hyperspeedRef, { margin: "-100px", once: false });
+  const sectionInView = useInView(sectionRef, { once: false, margin: "-100px" });
   const [showMainContent, setShowMainContent] = useState(false);
-    const sectionRef = useRef(null);
-  const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
+  const [hyperspeedActive, setHyperspeedActive] = useState(false);
+  const [typewriterFinished, setTypewriterFinished] = useState(false);
 
-  useEffect(() => {
-    // Delay to wait for animations (you can adjust this duration)
-    const timer = setTimeout(() => {
-      setShowMainContent(true);
-    }, 5000); // Wait 3 seconds (adjust based on animation length)
-
-    //for second slide motion
-
-    return () => clearTimeout(timer);
-  }, []);
-
-   const words = [
-    {
-      text: "Your",
-    },
-    {
-      text: "Companion",
-    },
-    {
-      text: "for",
-    },
-    {
-      text: "Better",
-    },
-    {
-      text: "Mental",
-      className: "text-blue-500 dark:text-blue-500",
-    },
-    {
-      text: "Health.",
-      className: "text-blue-500 dark:text-blue-500",
-    }
-  ];
   
+ useEffect(() => {
+  let timer: ReturnType<typeof setTimeout>;
+
+  if (typewriterFinished && isInView) {
+    setHyperspeedActive(true); // start hyperspeed first
+
+    timer = setTimeout(() => {
+      setShowMainContent(true); // show content a bit after hyperspeed
+    }, 1500); // delay the content for smoothness
+  }
+
+  if (!isInView) {
+    setHyperspeedActive(false);
+  }
+
+  return () => clearTimeout(timer);
+}, [typewriterFinished, isInView]);
+
+
+  const words = [
+    { text: "Your" },
+    { text: "Companion" },
+    { text: "for" },
+    { text: "Better" },
+    { text: "Mental", className: "text-blue-500 dark:text-blue-500" },
+    { text: "Health.", className: "text-blue-500 dark:text-blue-500" },
+  ];
+
   return (
-    
     <div className="w-full h-full overflow-x-hidden relative">
- <div className="fixed top-4 left-0 right-0 z-20 px-6 flex justify-between items-center">
-  <h1 className="text-2xl md:text-3xl font-extrabold text-white">MindEase</h1>
-
-  {/* <button className="px-4 py-2 bg-purple-600 text-white font-semibold rounded-2xl shadow hover:bg-purple-700 transition">
-    Get Started
-  </button> */}
-</div>
-
+      <div className="fixed top-4 left-0 right-0 z-20 px-6 flex justify-between items-center">
+        <h1 className="text-2xl md:text-3xl font-extrabold text-white">MindEase</h1>
+      </div>
 
       {/* SECTION 1: Hyperspeed Background */}
-      <section className="relative h-screen w-full">
-        {/* Hyperspeed background */}
-        <div className="absolute inset-0 z-0">
-          <Hyperspeed
-            effectOptions={{
-              onSpeedUp: () => {},
-              onSlowDown: () => {},
-              distortion: "turbulentDistortion",
-              length: 400,
-              roadWidth: 10,
-              islandWidth: 2,
-              lanesPerRoad: 4,
-              fov: 90,
-              fovSpeedUp: 150,
-              speedUp: 2,
-              carLightsFade: 0.4,
-              totalSideLightSticks: 20,
-              lightPairsPerRoadWay: 40,
-              shoulderLinesWidthPercentage: 0.05,
-              brokenLinesWidthPercentage: 0.1,
-              brokenLinesLengthPercentage: 0.5,
-              lightStickWidth: [0.12, 0.5],
-              lightStickHeight: [1.3, 1.7],
-              movingAwaySpeed: [60, 80],
-              movingCloserSpeed: [-120, -160],
-              carLightsLength: [400 * 0.03, 400 * 0.2],
-              carLightsRadius: [0.05, 0.14],
-              carWidthPercentage: [0.3, 0.5],
-              carShiftX: [-0.8, 0.8],
-              carFloorSeparation: [0, 5],
-              colors: {
-                roadColor: 0x080808,
-                islandColor: 0x0a0a0a,
-                background: 0x000000,
-                shoulderLines: 0xffffff,
-                brokenLines: 0xffffff,
-                leftCars: [0xd856bf, 0x6750a2, 0xc247ac],
-                rightCars: [0x03b3c3, 0x0e5ea5, 0x324555],
-                sticks: 0x03b3c3,
-              },
-            }}
-          />
-        </div>
-
-        {/* Overlay text content */}
-        <div className="relative z-3 h-full flex flex-col justify-center items-center text-center text-white px-6">
-          <TypewriterEffect words={words} className="mb-6" />
-     {showMainContent && (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 1 }}
-    >
-      <p className="text-lg max-w-xl mb-6">
-        Track your mood, manage stress, and discover personalized self-care routines.
-      </p>
-     <Link href="/start_page" className="max-w-xs inline-block">
-  <button
-    className="px-6 py-3 bg-purple-600 text-white rounded-2xl shadow-md hover:bg-purple-700 transition-transform transform hover:-translate-y-1 hover:shadow-lg"
-  >
-    Start Your Journey
-  </button>
-</Link>
-    </motion.div>
-  )}
-         </div>
-      </section>
-
-    {/* SECTION 2 */}
- <section
-        ref={sectionRef} className="h-screen w-full flex flex-col justify-center items-center bg-black px-8 md:px-20">
-  {/* ScrollFloat heading */}
-    <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.8 }}
-        >
-  <div className="flex justify-center items-center mb-12">
-    <BlurText
-      text="Explore Our Features"
-      delay={100}
-      animateBy="words"
-      direction="top"
-      className="text-5xl font-extrabold text-white text-center"
-    />
-  </div>
-  </motion.div>
-   <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={isInView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 1.2, delay: 0.5 }}
-        >
-<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-
-  {/* Card 1: Daily Mood Check-ins */}
-  <Link href="/mood-checkin" className="max-w-xs">
-  <SpotlightCard
-   className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center"
-
-    spotlightColor="rgba(0, 229, 255, 0.2)"
-  >
-
-<Image src="/dial.png" alt="Mood dial icon" width={64} height={64} className="mb-4"
+    <section ref={hyperspeedRef} className="relative h-screen w-full">
+  {/* Hyperspeed comes after typewriter finishes */}
+  {hyperspeedActive && (
+    <div className="absolute inset-0 z-0">
+            <Hyperspeed
+  effectOptions={{
+    length: 200, // reduce from 400
+    speedUp: 1.2, // slightly slower
+    movingAwaySpeed: [30, 50],
+    movingCloserSpeed: [-80, -120],
+    carLightsLength: [10, 40],
+    fov: 70, // reduce FOV for performance
+    totalSideLightSticks: 10,
+    lightPairsPerRoadWay: 20,
+    distortion: "turbulentDistortion",
+    colors: {
+      roadColor: 0x080808,
+      islandColor: 0x0a0a0a,
+      background: 0x000000,
+      sticks: 0x03b3c3,
+      shoulderLines: 0xffffff,
+      brokenLines: 0xffffff,
+      leftCars: [0xd856bf],
+      rightCars: [0x03b3c3],
+    }
+  }}
 />
+          </div>
+        )}
 
-      <h3 className="text-2xl font-semibold text-purple-700 mb-3">Daily Mood Check-ins</h3>
-      <p className="text-base text-gray-700 mb-2">
-        Log your emotions daily to track patterns and understand your triggers.
-     
-        Visualize your mood history and gain insights into your mental health trends over time.
-      </p>
-  </SpotlightCard>
-    </Link>
+        <div className="relative z-10 h-full flex flex-col justify-center items-center text-center text-white px-6">
+    <TypewriterEffect
+      words={words}
+      className="mb-6"
+      onFinished={() => setTypewriterFinished(true)}
+    />
 
-  {/* Card 2: Personalized Self-Care */}
-
- <Link href="/mood-checkin" className="max-w-xs">
-  <SpotlightCard
-   className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center"
-
-    spotlightColor="rgba(0, 229, 255, 0.2)"
-  >
-  <Image src="/selfcare.png" alt="Self-care icon" width={64}   height={64} className="mb-4"/>
-    <div className="max-w-xs">
-      <h3 className="text-2xl font-semibold text-purple-700 mb-3">Personalized Self-Care</h3>
-      <p className="text-base text-gray-700 mb-2">
-        Receive AI-recommended routines tailored to your current emotional state.
-    
-        Includes breathing exercises, gratitude prompts, guided meditation, and more.
-      </p>
-    </div>
-  </SpotlightCard>
- </Link>
-
-  {/* Card 3: Anonymous Peer Support */}
-<Link href="/Chats" className="max-w-xs">
-  <SpotlightCard
-    className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center"
-
-    spotlightColor="rgba(0, 229, 255, 0.2)"
-  >
-    <Image src="/chat.png" alt="Support icon" width={64}   height={64} className="mb-4"/>
-    <div className="max-w-xs">
-      <h3 className="text-2xl font-semibold text-purple-700 mb-3">Anonymous Peer Support</h3>
-      <p className="text-base text-gray-700 mb-2">
-        Share your feelings anonymously in safe spaces moderated by our community.
-        Chat with others going through similar experiences and never feel alone again.
-      </p>
-    </div>
-  </SpotlightCard>
-   </Link>
-</div>
- </motion.div>
-
-
+    {/* Main content appears after delay */}
+    {showMainContent && (
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 1 }}
+      >
+        <p className="text-lg max-w-xl mb-6">
+          Track your mood, manage stress, and discover personalized self-care routines.
+        </p>
+        <Link href="/start_page" className="max-w-xs inline-block">
+        <button className="cursor-pointer px-6 py-3 bg-purple-600 text-white rounded-2xl shadow-md hover:bg-purple-700 hover:scale-110 hover:shadow-purple-500 hover:shadow-xl transition-all duration-300 ease-in-out">
+            Start Your Journey
+          </button>
+        </Link>
+      </motion.div>
+    )}
+  </div>
 </section>
 
-<AnimatedSection
+      {/* SECTION 2 */}
+      <section ref={sectionRef} className="h-screen w-full flex flex-col justify-center items-center bg-black px-8 md:px-20">
+       <motion.div
+  initial={{ opacity: 0, y: 40 }}
+  animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+  transition={{ duration: 0.8 }}
+>
+          <div className="flex justify-center items-center mb-12">
+            <BlurText
+              text="Explore Our Features"
+              delay={100}
+              animateBy="words"
+              direction="top"
+              className="text-5xl font-extrabold text-white text-center"
+            />
+          </div>
+        </motion.div>
+
+      <motion.div
+  initial={{ opacity: 0, y: 40 }}
+  animate={sectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+  transition={{ duration: 1.2, delay: 0.5 }}
+>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <Link href="/mood-checkin" className="max-w-xs">
+              <SpotlightCard className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center" spotlightColor="rgba(0, 229, 255, 0.2)">
+                <Image src="/dial.png" alt="Mood dial icon" width={64} height={64} className="mb-4" />
+                <h3 className="text-2xl font-semibold text-purple-700 mb-3">Daily Mood Check-ins</h3>
+                <p className="text-base text-gray-700 mb-2">
+                  Log your emotions daily to track patterns and understand your triggers.
+                  Visualize your mood history and gain insights into your mental health trends over time.
+                </p>
+              </SpotlightCard>
+            </Link>
+
+            <Link href="/mood-checkin" className="max-w-xs">
+              <SpotlightCard className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center" spotlightColor="rgba(0, 229, 255, 0.2)">
+                <Image src="/selfcare.png" alt="Self-care icon" width={64} height={64} className="mb-4" />
+                <div className="max-w-xs">
+                  <h3 className="text-2xl font-semibold text-purple-700 mb-3">Personalized Self-Care</h3>
+                  <p className="text-base text-gray-700 mb-2">
+                    Receive AI-recommended routines tailored to your current emotional state. Includes breathing exercises, gratitude prompts, guided meditation, and more.
+                  </p>
+                </div>
+              </SpotlightCard>
+            </Link>
+
+            <Link href="/Chats" className="max-w-xs">
+              <SpotlightCard className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center" spotlightColor="rgba(0, 229, 255, 0.2)">
+                <Image src="/chat.png" alt="Support icon" width={64} height={64} className="mb-4" />
+                <div className="max-w-xs">
+                  <h3 className="text-2xl font-semibold text-purple-700 mb-3">Anonymous Peer Support</h3>
+                  <p className="text-base text-gray-700 mb-2">
+                    Share your feelings anonymously in safe spaces moderated by our community. Chat with others going through similar experiences and never feel alone again.
+                  </p>
+                </div>
+              </SpotlightCard>
+            </Link>
+          </div>
+        </motion.div>
+      </section>
+   <AnimatedSection
   imageSrc="/Health-Tracking-apps.jpg"
   altText="Real-time tracking"
   title="Smarter Mental Health Support"
@@ -263,7 +217,7 @@ type AnimatedSectionProps = {
   reverse = false,
 }: AnimatedSectionProps) {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-100px" });
+  const inView = useInView(ref, { once: false, margin: "-100px" });
 
   return (
     <section

@@ -8,6 +8,7 @@ export const TypewriterEffect = ({
   words,
   className,
   cursorClassName,
+   onFinished,
 }: {
   words: {
     text: string;
@@ -15,6 +16,7 @@ export const TypewriterEffect = ({
   }[];
   className?: string;
   cursorClassName?: string;
+   onFinished?: () => void;
 }) => {
   // split text inside of words into array of characters
   const wordsArray = words.map((word) => {
@@ -23,7 +25,7 @@ export const TypewriterEffect = ({
       text: word.text.split(""),
     };
   });
-
+  
   const [scope, animate] = useAnimate();
   const isInView = useInView(scope);
   useEffect(() => {
@@ -43,6 +45,14 @@ export const TypewriterEffect = ({
       );
     }
   }, [isInView]);
+  useEffect(() => {
+  const totalDuration = words.length * 500 + 300; // adjust based on delay per character
+  const timer = setTimeout(() => {
+    if (onFinished) onFinished(); // ✅ trigger callback
+  }, totalDuration);
+
+  return () => clearTimeout(timer);
+}, [words, onFinished]);
 
   const renderWords = () => {
     return (

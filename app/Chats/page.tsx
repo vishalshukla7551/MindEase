@@ -21,13 +21,19 @@ export default function AnonymousChat() {
   const [showNicknamePrompt, setShowNicknamePrompt] = useState<boolean>(false);
   const chatBoxRef = useRef<HTMLDivElement | null>(null);
 
-  const [userId] = useState<string>(() => {
-    const storedId = localStorage.getItem('anon-id');
-    if (storedId) return storedId;
+  const [userId, setUserId] = useState<string>('');
+
+useEffect(() => {
+  const storedId = localStorage.getItem('anon-id');
+  if (storedId) {
+    setUserId(storedId);
+  } else {
     const newId = uuidv4().slice(0, 8);
     localStorage.setItem('anon-id', newId);
-    return newId;
-  });
+    setUserId(newId);
+  }
+}, []);
+
 
   useEffect(() => {
     const savedNickname = localStorage.getItem('anon-nickname');
@@ -66,13 +72,6 @@ export default function AnonymousChat() {
       };
       socket.emit('send_message', msgData);
       setMessage('');
-    }
-  };
-
-  const handleNicknameSubmit = () => {
-    if (nickname.trim()) {
-      localStorage.setItem('anon-nickname', nickname.trim());
-      setShowNicknamePrompt(false);
     }
   };
 
