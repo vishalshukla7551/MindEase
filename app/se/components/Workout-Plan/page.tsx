@@ -3,7 +3,6 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import remarkBreaks from "remark-breaks";
-import Image from 'next/image';
 const fitnessGoals = [
   "Weight Loss",
   "Weight Gain",

@@ -41,6 +41,7 @@ export default function FitnessMeasurePage() {
       console.log(data);
       setMessage(data?.['prediction details']?.message || 'No message found.');
     } catch (error) {
+       console.error('Fetch error:', error); // Now you're using it
       setMessage('Error fetching prediction.');
     } finally {
       setLoading(false);

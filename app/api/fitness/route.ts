@@ -15,6 +15,7 @@ export async function POST(req: Request) {
     const data = await res.json();
     return NextResponse.json(data);
   } catch (error) {
+    console.error('Fetch error:', error); 
     return NextResponse.json({ error: 'Server Error' }, { status: 500 });
   }
 }

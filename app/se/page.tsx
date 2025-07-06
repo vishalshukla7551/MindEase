@@ -59,7 +59,7 @@ export default function HealthFeatureCards() {
               <Image src="/diet.png" alt="Diet icon" width={70} height={70} className="mb-4" />
               <h3 className="text-3xl font-semibold text-purple-700 mb-3">Create Diet Plan</h3>
              <p className="text-lg text-gray-400 mb-2">
-  Generate a personalized meal plan tailored to your body type, fitness goals, dietary preferences, and age. Whether you're bulking, cutting, or maintaining, your nutrition roadmap starts here.
+  {`Generate a personalized meal plan tailored to your body type, fitness goals, dietary preferences, and age. Whether you're bulking, cutting, or maintaining, your nutrition roadmap starts here.`}
 </p>
 
             </SpotlightCard>
@@ -72,9 +72,9 @@ export default function HealthFeatureCards() {
               <Image src="/healthcare.png" alt="Health check icon" width={70} height={70} className="mb-4" />
               <h1 className="text-3xl font-semibold text-purple-700 mb-3">Health Check</h1>
            <p className="text-lg text-gray-400 mb-2">
-  Begin with a quick self-assessment of your physical and emotional well-being. 
+  {`Begin with a quick self-assessment of your physical and emotional well-being. 
   This helps you stay mindful, track your mood patterns, and ensure you're maintaining 
-  a healthy balance in your daily life.
+  a healthy balance in your daily life.`}
 </p>
 
             </SpotlightCard>
@@ -88,7 +88,7 @@ export default function HealthFeatureCards() {
               <Image src="/weightlifting.png" alt="Workout icon" width={70} height={70} className="mb-4" />
               <h3 className="text-3xl font-semibold text-purple-700 mb-3">Create Workout Plan</h3>
             <p className="text-lg text-gray-400 mb-2">
-  Craft a customized workout routine designed around your goals—be it fat loss, muscle gain, or improved stamina. Get plans suited for home, gym, or hybrid setups, with smart progression tracking.
+ {` Craft a customized workout routine designed around your goals—be it fat loss, muscle gain, or improved stamina. Get plans suited for home, gym, or hybrid setups, with smart progression tracking.`}
 </p>
 
             </SpotlightCard>

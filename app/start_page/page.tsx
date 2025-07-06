@@ -1,5 +1,5 @@
 'use client';
-
+import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { TypewriterEffect } from "../components/ui/typewriter-effect";
 import { useRouter } from 'next/navigation';
@@ -74,7 +74,7 @@ setWords(name.split(" ").map((word, index, arr) => ({
      <div className="min-h-screen bg-black flex flex-col md:flex-row items-center justify-center p-6">
       {/* Left Image Section */}
       <div className="hidden md:flex md:w-1/2 justify-center items-center">
-        <img
+        <Image
           src="/fitness.png" // Replace with your image path
           alt="Mental health illustration"
           className="max-w-full h-auto rounded-2xl shadow-xl"
