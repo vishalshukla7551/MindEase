@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import SpotlightCard from "@/app/components/animations/SpotlightCard/SpotlightCard";
@@ -8,21 +7,6 @@ import BlurText from "@/app/components/animations/BlurText/BlurText";
 import Link from 'next/link'
 export default function HealthFeatureCards() {
   const sectionInView = true; // Replace with intersection observer logic if needed
-    const router = useRouter();
-
-  const handleCheck = async () => {
-
-
-// Simulate an async task (e.g. API call)
-
-    const res = await fetch("https://chatbot-fitness.onrender.com/health", {
-      method: "GET",
-    });
-
-    const data = await res.json();
-
-    router.push(`/se/components/health-result?status=${data.status}&time=${encodeURIComponent(data.timestamp)}`);
-  };
 
   return (
     <>
@@ -64,7 +48,7 @@ export default function HealthFeatureCards() {
 
             </SpotlightCard>
     </Link>
-    <div onClick={handleCheck}>
+    <Link href="/se/components/health-result">
        <SpotlightCard
   className="w-full h-full min-h-[26rem] p-4 rounded-xl shadow-md transition-transform duration-300 transform hover:scale-105 flex flex-col items-center text-center bg-[#111] border border-[#222] cursor-pointer"
   spotlightColor="rgba(0, 229, 255, 0.2)"
@@ -78,7 +62,7 @@ export default function HealthFeatureCards() {
 </p>
 
             </SpotlightCard>
-  </div>
+  </Link>
           {/* Workout Plan */}
          <Link href="/se/components/Workout-Plan">
  <SpotlightCard
