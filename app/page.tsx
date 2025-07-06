@@ -148,7 +148,7 @@ export default function LandingPage() {
               </SpotlightCard>
             </Link>
 
-            <Link href="/mood-checkin" className="max-w-xs">
+            <Link href="/se" className="max-w-xs">
               <SpotlightCard className="custom-spotlight-card p-6 rounded-2xl shadow-md transition-transform duration-300 transform hover:scale-105 min-h-[23rem] flex flex-col items-center text-center" spotlightColor="rgba(0, 229, 255, 0.2)">
                 <Image src="/selfcare.png" alt="Self-care icon" width={64} height={64} className="mb-4" />
                 <div className="max-w-xs">
