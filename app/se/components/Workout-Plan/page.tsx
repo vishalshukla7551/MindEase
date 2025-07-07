@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
+import Image from 'next/image';
 import remarkBreaks from "remark-breaks";
 const fitnessGoals = [
   "Weight Loss",
@@ -72,7 +73,18 @@ export default function DietPlanForm() {
 
   return (
    <div className="max-w-4xl mx-auto px-4 py-10 text-white min-h-screen">
-  <h1 className="text-4xl font-bold text-center mb-8">🥗 Create Your Personalized Workout Plan</h1>
+ <div className="flex justify-center items-center gap-3 mb-8">
+  <Image
+    src="/weightlifting.png"
+    alt="Diet icon"
+    width={40}
+    height={40}
+    className="inline-block"
+  />
+  <h1 className="text-4xl font-bold text-center">
+    Create Your Personalized Workout Plan
+  </h1>
+</div>
 
   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 

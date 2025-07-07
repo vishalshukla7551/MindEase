@@ -53,7 +53,7 @@ export default function FitnessMeasurePage() {
   {/* Heading */}
   <div className="flex items-center gap-4 mb-10">
   <Image
-    src="/diet.png"
+    src="/healthcare.png"
     alt="Diet icon"
     width={40}
     height={40}

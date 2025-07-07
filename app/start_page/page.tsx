@@ -1,5 +1,4 @@
 'use client';
-import Image from "next/image";
 import React, { useEffect, useState } from 'react';
 import { TypewriterEffect } from "../components/ui/typewriter-effect";
 import { useRouter } from 'next/navigation';
@@ -71,69 +70,87 @@ setWords(name.split(" ").map((word, index, arr) => ({
   }
 
   return (
-     <div className="min-h-screen bg-black flex flex-col md:flex-row items-center justify-center p-6">
-      {/* Left Image Section */}
-      <div className="hidden md:flex md:w-1/2 justify-center items-center">
-        <Image
-          src="/fitness.png" // Replace with your image path
-          alt="Mental health illustration"
-          className="max-w-full h-auto rounded-2xl shadow-xl"
+  <>
+  {/* Fullscreen Section with Background */}
+  <div
+    className="min-h-screen w-full bg-cover bg-center bg-no-repeat flex flex-col items-center justify-center px-4 pb-20"
+    style={{
+      backgroundImage: "url('/Intro.jpeg')", // Ensure the image exists in /public
+    }}
+  >
+  
+    <h1 className="relative z-10 text-4xl md:text-5xl font-extrabold text-white text-center mb-8">
+      {`Let's Know About You`}
+    </h1>
+
+    {/* Glass Form Container */}
+    <div className="relative z-10 w-full max-w-lg p-10 rounded-2xl shadow-xl bg-black/70 backdrop-blur-md">
+      <form onSubmit={handleSubmit} className="space-y-5">
+        <h2 className="text-2xl font-bold text-white text-center">👋 Welcome</h2>
+        <p className="text-sm text-gray-300 text-center mb-4">
+          {`Let’s personalize your mental wellness experience.`}
+        </p>
+
+        {/* Name */}
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          required
+          onChange={handleChange}
+          className="w-full bg-[#111] text-white placeholder-gray-400 border border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-      </div>
 
-      {/* Right Form Section */}
-      <div className="w-full md:w-1/2 bg-neutral-900 p-8 rounded-xl shadow-lg max-w-md">
-        <form onSubmit={handleSubmit} className="space-y-5">
-          <h2 className="text-2xl font-bold text-white mb-4 text-center">Welcome! 👋</h2>
-          <p className="text-gray-400 text-sm mb-6 text-center">
-            Let’s personalize your mental wellness experience.
-          </p>
-
+        {/* Age */}
+        <input
+          type="number"
+          name="age"
+          placeholder="Age"
+          required
+          onChange={handleChange}
+          className="w-full bg-[#111] text-white placeholder-gray-400 border border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
           <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            required
-            className="w-full border border-gray-700 bg-black text-white placeholder-gray-400 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={handleChange}
-          />
+          type="text"
+          name="gender"
+          placeholder="Gender"
+          required
+          onChange={handleChange}
+          className="w-full bg-[#111] text-white placeholder-gray-400 border border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
+        {/* Weight */}
+        <input
+          type="number"
+          name="weight"
+          placeholder="Weight (kg)"
+          required
+          onChange={handleChange}
+          className="w-full bg-[#111] text-white placeholder-gray-400 border border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
-          <input
-            type="number"
-            name="age"
-            placeholder="Age"
-            required
-            className="w-full border border-gray-700 bg-black text-white placeholder-gray-400 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={handleChange}
-          />
+        {/* Height */}
+        <input
+          type="number"
+          name="height"
+          placeholder="Height (cm)"
+          required
+          onChange={handleChange}
+          className="w-full bg-[#111] text-white placeholder-gray-400 border border-gray-600 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
-          <input
-            type="number"
-            name="weight"
-            placeholder="Weight (kg)"
-            required
-            className="w-full border border-gray-700 bg-black text-white placeholder-gray-400 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={handleChange}
-          />
-
-          <input
-            type="number"
-            name="height"
-            placeholder="Height (cm)"
-            required
-            className="w-full border border-gray-700 bg-black text-white placeholder-gray-400 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            onChange={handleChange}
-          />
-
-          <button
-            type="submit"
-            className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-3 rounded-lg"
-          >
-            Submit
-          </button>
-        </form>
-      </div>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-blue-600 hover:bg-blue-700 transition-colors text-white font-semibold py-3 rounded-lg"
+        >
+          Submit
+        </button>
+      </form>
     </div>
+  </div>
+</>
+
+
 
   );
 }
