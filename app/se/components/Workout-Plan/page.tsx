@@ -54,7 +54,7 @@ export default function DietPlanForm() {
   const handleSubmit = async () => {
      setLoading(true);
      console.log(form);
-    const res = await fetch("https://chatbot-fitness.onrender.com/diet-plan", {
+    const res = await fetch("https://chatbot-fitness.onrender.com/workout-plan", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
